@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/search">
+    <input type="text" name="klt">
+    <button type="submit">ok</button>
+
+</form>
+<a href="/create">Create Customer</a>
+<table class="table" border="1" >
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>FirthName</th>
+        <th>LASTNAME</th>
+        <th>GENDER</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customerlist}">
+        <td th:text="${customer.id}"></td>
+        <td th:text="${customer.firstName}"></td>
+        <td th:text="${customer.lastName}"></td>
+        <td th:switch="${customer.gender}">
+            <span th:case="1">Female</span>
+            <span th:case="2">Male</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

@@ -23,7 +23,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public List<Customer> findCustomerByIdContaining(String nameSeach) {
-        return customerRepository.findCustomerByIdContaining(nameSeach);
+    public List<Customer> findCustomerByFirstName(String nameSeach) {
+        return customerRepository.findCustomerByFirstNameContains(nameSeach);
     }
 }

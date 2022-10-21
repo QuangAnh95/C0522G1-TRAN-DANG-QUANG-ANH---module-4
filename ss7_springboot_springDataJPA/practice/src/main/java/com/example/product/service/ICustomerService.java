@@ -9,5 +9,5 @@ public interface ICustomerService {
 
     void save(Customer customer);
 
-    List<Customer> findCustomerByIdContaining(String nameSeach);
+    List<Customer> findCustomerByFirstName(String nameSeach);
 }

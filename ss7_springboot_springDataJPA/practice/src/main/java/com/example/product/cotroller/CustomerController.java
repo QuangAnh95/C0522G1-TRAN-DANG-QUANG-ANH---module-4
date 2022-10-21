@@ -36,9 +36,9 @@ public class CustomerController {
     }
 
     @GetMapping("/search")
-    public String searchCustomer(@RequestParam("klt") String nameSeach, Model model) {
-        model.addAttribute("customer", customerService.findCustomerByIdContaining(nameSeach));
-        return "/";
+    public String searchCustomer(@RequestParam(value = "klt",required = false,defaultValue = "") String nameSeach, Model model) {
+        model.addAttribute("customerlist", customerService.findCustomerByFirstName(nameSeach));
+        return "/customer";
 
     }
 

@@ -16,13 +16,6 @@ public class Blog {
     @JoinColumn(name = "category_id",referencedColumnName = "idCategory")
     private Category category;
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public Blog() {
     }
@@ -40,6 +33,15 @@ public class Blog {
         this.author = author;
         this.content = content;
         this.date = date;
+    }
+
+    public Blog(int id, String title, String author, String content, String date, Category category) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.content = content;
+        this.date = date;
+        this.category = category;
     }
 
     public int getId() {
@@ -80,5 +82,14 @@ public class Blog {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

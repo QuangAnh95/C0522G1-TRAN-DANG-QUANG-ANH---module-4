@@ -12,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -24,34 +21,44 @@ public class SongController {
     private ISongService songService;
 
     @GetMapping("")
-    public String listSong(@PageableDefault(value = 1)Pageable pageable,
-                           @RequestParam(value = "title",defaultValue = "")String title,
-                           Model model){
-        model.addAttribute("listSong",songService.findByNameContaining(pageable,title));
+    public String listSong(@PageableDefault(value = 1) Pageable pageable,
+                           @RequestParam(value = "title", defaultValue = "") String title,
+                           Model model) {
+        model.addAttribute("listSong", songService.findByNameContaining(pageable, title));
         return "/list";
     }
 
     @GetMapping("/create")
-    public String formCreate(Model model){
-        model.addAttribute("songDto",new SongDto());
+    public String formCreate(Model model) {
+        model.addAttribute("songDto", new SongDto());
         return "create";
     }
 
     @PostMapping("/save")
-    public String saveSong(@Validated @ModelAttribute SongDto songDto, BindingResult bindingResult, RedirectAttributes redirectAttributes,Model model){
-        new SongDto().validate(songDto,bindingResult);
-        if (bindingResult.hasFieldErrors()){
+    public String saveSong(@Validated @ModelAttribute SongDto songDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        new SongDto().validate(songDto, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
             return "list";
-        }
-        else {
+        } else {
             Song song = new Song();
-            BeanUtils.copyProperties(songDto,song);
+            BeanUtils.copyProperties(songDto, song);
             songService.save(song);
-            redirectAttributes.addFlashAttribute("mess","Create Song OK");
+            redirectAttributes.addFlashAttribute("mess", "Create Song OK");
             return "redirect:/";
         }
     }
 
+    @GetMapping("/formUpdate")
+    public String formEdit(@PathVariable int id, Model model) {
+        model.addAttribute("song", songService.findById(id));
+        return "/edit";
+    }
 
-
+    @PostMapping("/update")
+    public String updateSong(@ModelAttribute Song song,RedirectAttributes redirectAttributes){
+            songService.save(song);
+            redirectAttributes.addFlashAttribute("mess","Update Ok");
+            return "/";
+    }
 }
+

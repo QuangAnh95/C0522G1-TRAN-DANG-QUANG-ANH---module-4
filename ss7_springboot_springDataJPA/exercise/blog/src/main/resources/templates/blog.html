@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+    <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>show</title>
 </head>
 <body>
+<form action="/">
+    <input type="text" name="bl">
+    <button type="submit">Search</button>
+</form>
 <a href="/create">CREATE BLOG</a>
 <table class="table" border="1" >
     <thead>
@@ -18,7 +22,7 @@
     </thead>
     <tbody>
     <tr th:each="blog,status : ${blogList}">
-        <td th:text="${status.count}"></td>
+        <td th:text="${blogList.number * 3 + status.count}"></td>
         <td th:text="${blog.title}"></td>
         <td th:text="${blog.author}"></td>
         <td th:text="${blog.content}"></td>
@@ -27,9 +31,9 @@
     </tbody>
 </table>
 <div>
-    <a th:href="@{'/'(page=${blogList.number - 1}, name=${names})}" th:if="${blogList.hasPrevious()}">Trước</a>
+    <a th:href="@{'/'(page=${blogList.number - 1}, bl=${bl1})}" th:if="${blogList.hasPrevious()}">Trước</a>
     <span th:text="${blogList.number + 1}"></span>/<span th:text="${blogList.totalPages}"></span>
-    <a th:href="@{'/'(page=${blogList.number + 1}, name=${names})}" th:if="${blogList.hasNext()}">Sau</a>
+    <a th:href="@{'/'(page=${blogList.number + 1}, bl=${bl1})}" th:if="${blogList.hasNext()}">Sau</a>
 </div>
 </body>
 </html>

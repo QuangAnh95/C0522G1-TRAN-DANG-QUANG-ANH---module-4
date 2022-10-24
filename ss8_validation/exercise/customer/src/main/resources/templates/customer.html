@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ShowList</title>
+</head>
+<body>
+<form>
+    <a href="/create">Create Customer</a>
+</form>
+<table class="table" border="2">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Phone</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="customer,status:${customerList}">
+            <td th:text="${status.count}"></td>
+            <td th:text="${customer.name}"></td>
+            <td th:text="${customer.age}"></td>
+            <td th:text="${customer.phone}"></td>
+            <td th:text="${customer.email}"></td>
+        </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{'/'(page=${customerList.number - 1}, name=${names})}" th:if="${customerList.hasPrevious()}">Trước</a>
+    <span th:text="${customerList.number + 1}"></span>/<span th:text="${customerList.totalPages}"></span>
+    <a th:href="@{'/'(page=${customerList.number + 1}, name=${names})}" th:if="${customerList.hasNext()}">Sau</a>
+</div>
+</body>
+</html>

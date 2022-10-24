@@ -11,10 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.sql.Date;
 
 @Controller
 public class BlogController {
@@ -25,22 +24,27 @@ public class BlogController {
     private ICategoryService categoryService;
 
     @GetMapping("/")
-    public ModelAndView showList(@PageableDefault(value = 1) Pageable pageable) {
-        return new ModelAndView("blog", "blogList", blogService.findAll(pageable));
+    public String showList(@PageableDefault(value = 3) Pageable pageable,
+                                 @RequestParam(value = "bl",defaultValue = "") String blaaaa,
+                                 Model model) {
+        model.addAttribute("bl1",blaaaa);
+        model.addAttribute("blogList",blogService.findAllByTitleContaining(pageable,blaaaa));
+        return "blog";
     }
-
     @GetMapping("/create")
-    public String showCreatePage(Model model){
+    public String showCreatePage(Model model) {
         model.addAttribute("blogList", new Blog());
-        model.addAttribute("categoryList",categoryService.findAll());
+        model.addAttribute("categoryList", categoryService.findAll());
+
         return "create";
     }
 
     @PostMapping("/save")
-    public String createBlog(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes){
+    public String createBlog(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
         blogService.save(blog);
-        redirectAttributes.addFlashAttribute("mess","create blog  OK");
+        redirectAttributes.addFlashAttribute("mess", "create blog  OK");
         return "redirect:/";
     }
+
 
 }

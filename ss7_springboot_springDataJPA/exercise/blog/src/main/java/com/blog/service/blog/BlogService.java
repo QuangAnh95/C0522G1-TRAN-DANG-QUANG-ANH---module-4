@@ -14,15 +14,6 @@ public class BlogService implements IBlogService {
     @Autowired
     private IBlogRepository blogRepository;
 
-    @Override
-    public Page<Blog> findAll(Pageable pageable) {
-        return blogRepository.findAll(pageable);
-    }
-
-    @Override
-    public Page<Blog> findAllByTitleContaining(Pageable pageable, String titleSearch) {
-        return blogRepository.findAllByTitleContaining(pageable,titleSearch);
-    }
 
     @Override
     public void save(Blog blog) {
@@ -30,7 +21,9 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public List<Blog> findAll() {
-        return blogRepository.findAll();
+    public Page<Blog> findAllByTitleContaining(Pageable pageable, String titleSearch) {
+        return blogRepository.findAllByTitleContaining(pageable,titleSearch);
     }
+
+
 }

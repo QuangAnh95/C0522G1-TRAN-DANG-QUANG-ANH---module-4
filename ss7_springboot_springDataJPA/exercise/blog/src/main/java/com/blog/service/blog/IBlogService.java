@@ -13,4 +13,10 @@ public interface IBlogService {
 
 
     Page<Blog> findAllByTitleContaining (Pageable pageable, String titleSearch);
+
+    Page<Blog> findAll(Pageable pageable);
+
+    Blog findById(int id);
+
+    void remove(int id);
 }

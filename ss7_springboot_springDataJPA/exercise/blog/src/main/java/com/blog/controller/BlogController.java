@@ -8,10 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,10 +22,10 @@ public class BlogController {
 
     @GetMapping("/")
     public String showList(@PageableDefault(value = 3) Pageable pageable,
-                                 @RequestParam(value = "bl",defaultValue = "") String blaaaa,
+                                 @RequestParam(value = "bl",defaultValue = "") String bl,
                                  Model model) {
-        model.addAttribute("bl1",blaaaa);
-        model.addAttribute("blogList",blogService.findAllByTitleContaining(pageable,blaaaa));
+        model.addAttribute("bl1",bl);
+        model.addAttribute("blogList",blogService.findAllByTitleContaining(pageable,bl));
         return "blog";
     }
     @GetMapping("/create")
@@ -43,6 +40,31 @@ public class BlogController {
     public String createBlog(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
         blogService.save(blog);
         redirectAttributes.addFlashAttribute("mess", "create blog  OK");
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}-delete")
+    public String deleteForm(@PathVariable int id,Model model){
+        model.addAttribute("blog",blogService.findById(id));
+        return "delete";
+    }
+
+    @PostMapping("/delete")
+    public String deleteBlog(@ModelAttribute Blog blog,RedirectAttributes redirectAttributes){
+        blogService.remove(blog.getId());
+        redirectAttributes.addFlashAttribute("messDelete","Delete Ok");
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}-update")
+    public String updateForm(@PathVariable int id, Model model){
+        model.addAttribute("blog",blogService.findById(id));
+        return "update";
+    }
+    @PostMapping("/update")
+    public String updateBlog(@ModelAttribute Blog blog,RedirectAttributes redirectAttributes){
+        blogService.save(blog);
+        redirectAttributes.addFlashAttribute("messUpdate","UPdate Ok");
         return "redirect:/";
     }
 

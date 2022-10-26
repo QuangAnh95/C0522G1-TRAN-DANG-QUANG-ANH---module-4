@@ -38,7 +38,7 @@ public class SongController {
     public String saveSong(@Validated @ModelAttribute SongDto songDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         new SongDto().validate(songDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
-            return "list";
+            return "create";
         } else {
             Song song = new Song();
             BeanUtils.copyProperties(songDto, song);
@@ -55,10 +55,17 @@ public class SongController {
     }
 
     @PostMapping("/update")
-    public String updateSong(@ModelAttribute Song song,RedirectAttributes redirectAttributes){
+    public String updateSong(@Validated @ModelAttribute SongDto songDto, BindingResult bindingResult ,RedirectAttributes redirectAttributes,Model model) {
+        new SongDto().validate(songDto, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
+            return "/edit";
+        } else {
+            Song song = new Song();
+            BeanUtils.copyProperties(songDto, song);
             songService.save(song);
-            redirectAttributes.addFlashAttribute("mess","Update Ok");
+            redirectAttributes.addFlashAttribute("mess", "Update Ok");
             return "/";
+        }
     }
 }
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<a href="/">Back List</a>
+
+<form th:object="${category}" action="/update" method="post">
+    <div>
+        <input type="hidden" th:field = "*{id}">
+    </div>
+    <div>
+        <label>Name Category</label>
+        <input type="text" th:field="*{nameCategory}" th:value="${category.nameCategory}">
+    </div>
+    <div>
+        <input type="submit" value="Update">
+    </div>
+</form>
+</body>
+</html>

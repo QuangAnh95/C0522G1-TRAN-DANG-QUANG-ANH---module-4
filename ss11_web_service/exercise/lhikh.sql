@@ -1,0 +1,1 @@
+categorycategorySELECT * FROM blog_service_table.blog;

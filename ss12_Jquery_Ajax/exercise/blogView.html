@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<h1>BLOG LIST</h1>
+<br>
+<input type="text" placeholder="Search Blog"><button type="submit">Search</button>
+<br>
+<br>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Create Blog
+</button>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Writer</th>
+        <th>Content</th>
+        <th>DateCreated</th>
+        <th>category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <span>Loading...</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Blog</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" placeholder="input Tittle" id="txtTitle"><br>
+                <input type="text" placeholder="input Writer" id="txtWriter"><br>
+                <input type="text" placeholder="input Content" id="txtContent"><br>
+                <input type="text" placeholder="input Date Created" id="txtDay"><br>
+                <input type="text" placeholder="input category" id="txtCategory"><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        // function init() {
+            setTimeout(function () {
+                $("tbody").empty();
+                $.ajax({
+                    url: "http://localhost:8080/api/blog",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        let tr = [];
+                        for (let i = 0; i < data.length; i++) {
+                            tr.push("<tr>")
+                            tr.push("<td>" + data[i].title + "</td>");
+                            tr.push("<td>" + data[i].writer + "</td>");
+                            tr.push("<td>" + data[i].content + "</td>");
+                            tr.push("<td>" + data[i].dateCreated + "</td>");
+                            tr.push("<td>" + data[i].category+ "</td>");
+                            tr.push("</tr>")
+                        }
+                        $("tbody").append(tr.join(""));
+                    }
+                })
+            },2000)
+        // }
+    })
+
+    $("#btnSave").click(function () {
+        console.log("OK")
+        let txtTitle = $("#txtTitle").val();
+        let txtWriter = $("#txtWriter").val();
+        let txtContent = $("#txtContent").val();
+        let txtDay = $("#txtDay").val();
+        let txtCategory = $("#txtCategory").val();
+
+
+        $.ajax({
+            url: "http://localhost:8080/api/blog",
+            type: "POST",
+            contentType:'application/json; charset=utf-8',
+            data:JSON.stringify({'title':txtTitle, 'writer':txtWriter, 'content':txtContent, 'dateCreated':txtDay,'category':txtCategory}),
+            success: function () {
+                $("#exampleModal").modal('hide');
+                $("tbody").empty();
+                $("tbody").append("Loading...")
+                // init();
+            }
+
+        })
+
+    })
+
+    function addNewSmartPhone() {
+        let producer = $('#producer').val();
+        let model = $('#model').val();
+        let price = $('#price').val();
+        let newSmartphone = {
+            producer: producer,
+            model: model,
+            price: price
+        };
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(newSmartphone),
+            url: "http://localhost:8080/smartphones",
+            success: displayList
+        });
+        event.preventDefault();
+    }
+
+
+</script>
+</body>
+</html>

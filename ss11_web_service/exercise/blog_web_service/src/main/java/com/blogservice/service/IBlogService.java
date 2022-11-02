@@ -13,4 +13,6 @@ public interface IBlogService {
     List<Blog> showListByCategory(int id);
 
     List<Blog> searchByTitle(String title);
+
+    void save(Blog blog);
 }

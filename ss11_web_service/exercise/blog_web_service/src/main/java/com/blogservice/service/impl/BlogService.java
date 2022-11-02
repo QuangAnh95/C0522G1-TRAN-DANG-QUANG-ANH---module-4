@@ -35,4 +35,9 @@ public  class BlogService implements IBlogService {
     public List<Blog> searchByTitle(String title) {
         return blogRepository.findByTitleContaining(title);
     }
+
+    @Override
+    public void save(Blog blog) {
+        blogRepository.save(blog);
+    }
 }

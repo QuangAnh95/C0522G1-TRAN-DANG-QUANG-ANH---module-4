@@ -35,7 +35,7 @@
     </tbody>
 </table>
 <div>
-    <a th:href="@{'/'(page=${blogList.number - 1}, bl=${bl1})}" th:if="${blogList.hasPrevious()}">Trước</a>
+    <a th:href="@{'/blogList'(page=${blogList.number - 1}, bl=${bl1})}" th:if="${blogList.hasPrevious()}">Trước</a>
     <span th:text="${blogList.number + 1}"></span>/<span th:text="${blogList.totalPages}"></span>
     <a th:href="@{'/'(page=${blogList.number + 1}, bl=${bl1})}" th:if="${blogList.hasNext()}">Sau</a>
 </div>

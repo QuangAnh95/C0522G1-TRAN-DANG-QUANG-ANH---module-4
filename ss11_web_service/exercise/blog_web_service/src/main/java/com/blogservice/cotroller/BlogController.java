@@ -45,4 +45,10 @@ public class BlogController {
         return new ResponseEntity<>(blogList,HttpStatus.OK);
 
     }
+
+    @PostMapping
+    public ResponseEntity addBlog(@RequestBody Blog blog){
+        blogService.save(blog);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

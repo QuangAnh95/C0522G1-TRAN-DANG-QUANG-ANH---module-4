@@ -2,14 +2,12 @@ package com.casestudy.controller;
 
 import com.casestudy.service.customer.ICustomerService;
 import com.casestudy.service.customer.ITypeCustomerService;
-import com.casestudy.service.customer.impl.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,7 +22,7 @@ public class CustomerController {
     @Autowired
     private ITypeCustomerService typeCustomerService;
 
-    @GetMapping()
+    @GetMapping("")
     public String showList(@PageableDefault(value = 5)Pageable pageable,
                            @RequestParam(value = "nameSearch",defaultValue = "") String nameSearch,
                            @RequestParam(value = "emailSearch", defaultValue = "") String emailSearch,

@@ -1,7 +1,5 @@
 package com.casestudy.model.customers;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -44,5 +42,13 @@ public class TypeCustomers {
 
     public void setCustomers(Set<Customers> customers) {
         this.customers = customers;
+    }
+
+    public long getIdTypeCustomer() {
+        return idTypeCustomer;
+    }
+
+    public void setIdTypeCustomer(long idTypeCustomer) {
+        this.idTypeCustomer = idTypeCustomer;
     }
 }

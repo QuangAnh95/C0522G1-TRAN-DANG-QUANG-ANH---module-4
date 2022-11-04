@@ -1,7 +1,6 @@
 package com.casestudy.model.customers;
 
 import com.casestudy.model.contract.Contract;
-import com.casestudy.model.contract.ContractDetail;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -26,6 +25,11 @@ public class Customers {
     @JoinColumn(name = "id_typeCustomer", referencedColumnName = "idTypeCustomer")
     @JsonBackReference
     private TypeCustomers typeCustomers;
+
+
+    @OneToMany(mappedBy = "customers")
+    @JsonManagedReference
+    private Set<Contract> contracts;
 
 
     public Customers() {
@@ -124,5 +128,21 @@ public class Customers {
 
     public void setTypeCustomers(TypeCustomers typeCustomers) {
         this.typeCustomers = typeCustomers;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

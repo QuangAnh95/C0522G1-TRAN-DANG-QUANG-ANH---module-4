@@ -1,9 +1,12 @@
 package com.casestudy.model.facility;
 
+import com.casestudy.model.contract.Contract;
+import com.casestudy.model.customers.Customers;
 import com.casestudy.model.employee.Position;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Facility {
@@ -29,6 +32,11 @@ public class Facility {
     @JoinColumn(name = "id_RenType", referencedColumnName = "idRenType")
     @JsonBackReference
     private RenType renType;
+
+
+    @OneToMany(mappedBy = "facility")
+    @JsonManagedReference
+    private Set<Contract> contracts;
 
     public Facility() {
     }
@@ -141,5 +149,13 @@ public class Facility {
 
     public void setRenType(RenType renType) {
         this.renType = renType;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

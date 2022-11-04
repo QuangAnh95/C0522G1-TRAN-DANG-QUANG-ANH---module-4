@@ -1,6 +1,4 @@
 package com.casestudy.model.contract;
-
-import com.casestudy.model.customers.Customers;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;

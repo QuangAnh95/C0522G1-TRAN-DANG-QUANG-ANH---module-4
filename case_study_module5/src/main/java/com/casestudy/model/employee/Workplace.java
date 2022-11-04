@@ -1,17 +1,12 @@
 package com.casestudy.model.employee;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 public class Workplace {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idWorkplace;
     private String nameWorkplace;
 

@@ -1,9 +1,9 @@
 package com.casestudy.model.employee;
-
-import com.casestudy.model.customers.TypeCustomers;
+import com.casestudy.model.contract.Contract;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Employee {
@@ -13,10 +13,11 @@ public class Employee {
     private String nameEmployee;
     private String dayEmployee;
     private String citizenEmployee;
-    private double wageEmployee;
+    private double salaryEmployee;
     private String phoneEmployee;
     private String emailEmployee;
     private String addressEmployee;
+    private int isDelete;
 
     @ManyToOne
     @JoinColumn(name = "id_position", referencedColumnName = "idPosition")
@@ -33,15 +34,20 @@ public class Employee {
     @JsonBackReference
     private Workplace workplace;
 
+
+    @OneToMany(mappedBy = "employee")
+    @JsonManagedReference
+    private Set<Contract> contracts;
+
     public Employee() {
     }
 
-    public Employee(long idEmployee, String nameEmployee, String dayEmployee, String citizenEmployee, double wageEmployee, String phoneEmployee, String emailEmployee, String addressEmployee, Position position, Education education, Workplace workplace) {
+    public Employee(long idEmployee, String nameEmployee, String dayEmployee, String citizenEmployee, double salaryEmployee, String phoneEmployee, String emailEmployee, String addressEmployee, Position position, Education education, Workplace workplace) {
         this.idEmployee = idEmployee;
         this.nameEmployee = nameEmployee;
         this.dayEmployee = dayEmployee;
         this.citizenEmployee = citizenEmployee;
-        this.wageEmployee = wageEmployee;
+        this.salaryEmployee = salaryEmployee;
         this.phoneEmployee = phoneEmployee;
         this.emailEmployee = emailEmployee;
         this.addressEmployee = addressEmployee;
@@ -82,12 +88,12 @@ public class Employee {
         this.citizenEmployee = citizenEmployee;
     }
 
-    public double getWageEmployee() {
-        return wageEmployee;
+    public double getSalaryEmployee() {
+        return salaryEmployee;
     }
 
-    public void setWageEmployee(double wageEmployee) {
-        this.wageEmployee = wageEmployee;
+    public void setSalaryEmployee(double wageEmployee) {
+        this.salaryEmployee = wageEmployee;
     }
 
     public String getPhoneEmployee() {
@@ -136,5 +142,21 @@ public class Employee {
 
     public void setWorkplace(Workplace workplace) {
         this.workplace = workplace;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

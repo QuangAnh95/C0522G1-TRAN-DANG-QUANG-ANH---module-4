@@ -9,7 +9,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 <body>
 
-<
+
+<form class="d-flex my-2" role="search" th:action="@{/customer}">
+    <input class="form-control me-2" type="text" placeholder="Nhập tên.." aria-label="Search"
+           name="nameSearch">
+
+    <input class="form-control me-2" type="text" placeholder="Nhập email.." aria-label="Search"
+           name="emailSearch">
+
+    <input class="form-control me-2" type="text" placeholder="Nhập kiểu khách hàng.." aria-label="Search"
+           name="typeCustomer">
+    <button class="btn btn-light btn-outline-primary" type="submit" name="action" value="search">
+        <i class="fa-solid fa-magnifying-glass"></i></button>
+</form>
+
 <table class="table table-light table-striped table-bordered">
     <tr class="table-dark text-light">
         <th class="text-center"><i class="fa-sharp fa-solid fa-bolt"></i></th>

@@ -1,6 +1,4 @@
 package com.casestudy.model.contract;
-
-import com.casestudy.model.customers.TypeCustomers;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;

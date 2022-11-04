@@ -29,10 +29,36 @@ public class ProductController {
         return "delete";
     }
 
-    @PostMapping("delete")
-    public String deleteProduct(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        productService.remove(id);
-        redirectAttributes.addFlashAttribute("Xóa sản phẩm"+ "thành công");
+    @PostMapping("/delete")
+    public String deleteProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
+        productService.remove(product.getId());
+        redirectAttributes.addFlashAttribute("Xóa sản phẩm"+ product.getName()+ "thành công");
         return "redirect:/product";
     }
+
+    @GetMapping("/create")
+    public String formCreate(Model model){
+     model.addAttribute("product",new Product());
+        return "create";
+    }
+    @PostMapping("/save")
+    public String saveProduct(@ModelAttribute Product product,RedirectAttributes redirectAttributes){
+        productService.save(product);
+        redirectAttributes.addFlashAttribute("create Product"+"OK");
+        return "redirect:/product";
+    }
+
+    @GetMapping("/{id}-update")
+    public String formEdit(@PathVariable Long id,Model model){
+        model.addAttribute("product",productService.findById(id));
+        return "update";
+    }
+
+    @PostMapping("/update")
+    public String updateProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes){
+        productService.save(product);
+        redirectAttributes.addFlashAttribute("Update Ok");
+        return "redirect:/product";
+    }
+
 }

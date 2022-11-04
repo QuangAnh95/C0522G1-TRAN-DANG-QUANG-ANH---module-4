@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Delete</title>
@@ -17,7 +17,7 @@
 </a>
 
 <form th:object="${product}" action="/delete" method="post">
-<!--    <input type="hidden" th:field="*{id}">-->
+    <input type="hidden" th:field="*{id}">
     <div>
         <label>Name</label>
         <input type="text" th:field="*{name}" th:value="${product.name}">

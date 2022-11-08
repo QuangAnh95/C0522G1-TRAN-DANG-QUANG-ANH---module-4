@@ -16,10 +16,9 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
 
-
     @Override
-    public Page<Customers> searchCustomer(String nameSearch, String emailSearch, int typeCustomer, Pageable pageable) {
-        return customerRepository.searchCustomer(nameSearch,emailSearch,typeCustomer,pageable);
+    public Page<Customers> searchCustomer(String nameSearch, String emailSearch, String customerType, Pageable pageable) {
+        return customerRepository.searchCustomer("%"+nameSearch+"%","%"+emailSearch+"%","%"+customerType+"%",pageable);
     }
 
     @Override
@@ -31,4 +30,16 @@ public class CustomerService implements ICustomerService {
     public List<Customers> findAll() {
         return customerRepository.findAll();
     }
+
+    @Override
+    public void save(Customers customers) {
+        customerRepository.save(customers);
+    }
+
+    @Override
+    public Customers findByIdCustomer(long id) {
+        return customerRepository.findByIdCustomer(id);
+    }
+
+
 }

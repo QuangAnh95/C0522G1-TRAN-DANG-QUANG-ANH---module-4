@@ -22,6 +22,7 @@ public class Facility {
     private double poolArea;
     private int numberOfFloors;
     private String facilityFree;
+    private int isDelete;
 
     @ManyToOne
     @JoinColumn(name = "id_FacilityType", referencedColumnName = "idFacilityType")
@@ -157,5 +158,13 @@ public class Facility {
 
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
     }
 }

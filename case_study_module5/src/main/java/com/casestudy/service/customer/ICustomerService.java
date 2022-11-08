@@ -8,10 +8,14 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ICustomerService {
-    Page<Customers> searchCustomer( String nameSearch, String emailSearch,int typeCustomer , Pageable pageable);
+    Page<Customers> searchCustomer( String nameSearch, String emailSearch , String customerType,Pageable pageable);
 
     void deleteLogical( Integer id);
 
     List<Customers> findAll();
+
+    void save(Customers customers);
+
+    Customers findByIdCustomer(long id);
 
 }

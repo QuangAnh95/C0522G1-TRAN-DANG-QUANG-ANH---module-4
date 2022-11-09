@@ -14,8 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 public interface IFacilityRepository extends JpaRepository<Facility,Long> {
 
 
-@Query(value = "select * from facility where name_facility like %:nameSearch% and is_delete = 0",nativeQuery = true)
-    Page<Facility> searchFacility(@Param("nameSearch") String nameSearch, Pageable pageable);
+@Query(value = "select facility.* " +
+        "from `facility` " +
+        "join `facility_type` on facility.id_facility_type = facility_type.id_facility_type " +
+        "join `ren_type` on facility.id_ren_type = ren_type.id_ren_type " +
+        "where facility.name_facility like %:nameSearch% and facility_type.name_facility_type like %:typeFacilitySearch% and ren_type.name_ren_type like %:renTypeSearch% and facility.is_delete = 0 "
+        ,nativeQuery = true)
+    Page<Facility> searchFacility(@Param("nameSearch") String nameSearch,
+                                  @Param("typeFacilitySearch") String typeFacilitySearch,
+                                  @Param("renTypeSearch") String renTypeSearch, Pageable pageable);
 
 
 

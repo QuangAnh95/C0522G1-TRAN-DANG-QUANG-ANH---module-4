@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>List Customer</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+<style>
+    body{
+        background-image: url("https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?cs=srgb&dl=pexels-pixabay-531880.jpg&fm=jpg");
+    }
+</style>
+<body>
+</head>
+<h1 style="text-align: center; color: black">CONTRACT LIST</h1>
+<!--<div th:if="${mess!= null}">-->
+<!--    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">-->
+<!--        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">-->
+<!--            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>-->
+<!--        </symbol>-->
+<!--        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">-->
+<!--            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>-->
+<!--        </symbol>-->
+<!--        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">-->
+<!--            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>-->
+<!--        </symbol>-->
+<!--    </svg>-->
+<!--    <div class="alert alert-success d-flex align-items-center" role="alert">-->
+<!--        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>-->
+<!--        <div th:text="${mess}">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<p>-->
+<!--    <a href="/facility/create"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">-->
+<!--        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>-->
+<!--        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>-->
+<!--    </svg>CREATE</a>-->
+<!--</p>-->
+<form action="/contract" style="margin-bottom: 5px;width: 100%">
+</form>
+<table class="table table-dark"  border="1">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Tên dịch vụ</th>
+        <th>Tên nhân viên</th>
+        <th>Tên khách hàng</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày kết thúc </th>
+        <th>Tiền đặt cọc</th>
+        <th>Tổng tiền</th>
+<!--        <th>Edit</th>-->
+<!--        <th>Delete</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="contract,iState  : ${contractList}">
+        <tr><td th:text="${iState.count+contractList.number*3}"></td>
+            <td th:text="${contract.facilityName}"></td>
+            <td th:text="${contract.employeeName}"></td>
+            <td th:text="${contract.customerName}"></td>
+            <td th:text="${contract.startDate}"></td>
+            <td th:text="${contract.endDate}"></td>
+            <td th:text="${'đ'+ contract.deposit}"></td>
+            <td th:text="${'đ'+ contract.totalMoney}"></td>
+<!--            <td><a class="btn btn-danger" th:href="@{/facility/update/__${facility.idFacility}__}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">-->
+<!--                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>-->
+<!--            </svg></a></td>-->
+<!--            <td>-->
+<!--                &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--                <button type="button" class="btn btn-primary" data-bs-toggle="modal"-->
+<!--                        data-bs-target="#deleteModal" th:attr="onclick=|infoDelete('${facility.idFacility}', '${facility.nameFacility}')|">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">-->
+<!--                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>-->
+<!--                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>-->
+<!--                    </svg>-->
+<!--                </button>-->
+<!--            </td>-->
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+<div style="text-align: center">
+    <a th:href="@{'/contract'(page=${contractList.number - 1})}"
+       th:if="${contractList.hasPrevious()}"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-caret-left-square-fill" viewBox="0 0 16 16">
+        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12z"/>
+    </svg></a>
+    <span th:text="${contractList.number+1}"></span>/
+    <span th:text="${contractList.totalPages}"></span>
+    <a th:href="@{'/contract'(page=${contractList.number + 1})}"
+       th:if="${contractList.hasNext()}"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-caret-right-square-fill" viewBox="0 0 16 16">
+        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4v8z"/>
+    </svg></a>
+</div>
+<!--<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"-->
+<!--     aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="deleteModalLabel">Delete facility</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <p>-->
+<!--                    Are you sure you want to delete <span style="color: red" id="nameDelete"></span>?-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <form action="/facility/delete">-->
+<!--                    <input type="text" name="idDelete" id="id"  hidden>-->
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                    <button class="btn btn-danger" type="submit">Delete</button>-->
+<!--                </form>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script>-->
+<!--    function infoDelete(id, name) {-->
+<!--        document.getElementById("nameDelete").innerText = name;-->
+<!--        document.getElementById("id").value = id;-->
+<!--    }-->
+<!--</script>-->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous">
+</script>
+</html>

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IFacilityService {
-    Page<Facility> searchFacility( String nameSearch, Pageable pageable);
+    Page<Facility> searchFacility( String nameSearch,String typeFacilitySearch,String renTypeSearch, Pageable pageable);
 
     void deleteLogical( int id);
 
@@ -16,5 +16,6 @@ public interface IFacilityService {
     List<Facility> findAll();
 
     void save(Facility facility);
+
 
 }

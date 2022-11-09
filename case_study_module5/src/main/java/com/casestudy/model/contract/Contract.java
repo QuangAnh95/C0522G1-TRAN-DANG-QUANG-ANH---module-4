@@ -17,6 +17,7 @@ public class Contract {
     private String startDate;
     private String endDate;
     private double deposit;
+    private int isDelete;
 
     @OneToMany(mappedBy = "contract")
     @JsonManagedReference
@@ -123,5 +124,13 @@ public class Contract {
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
     }
 }

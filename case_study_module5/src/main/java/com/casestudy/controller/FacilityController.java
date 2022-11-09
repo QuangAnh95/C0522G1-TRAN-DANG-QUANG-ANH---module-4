@@ -28,17 +28,23 @@ public class FacilityController {
 
     @GetMapping("")
     public String formList(@PageableDefault(value = 5)Pageable pageable,
-                           @RequestParam(value = "nameSearch",defaultValue = "") String nameSearch, Model model){
+                           @RequestParam(value = "nameSearch",defaultValue = "") String nameSearch,
+                           @RequestParam(value = "typeFacilitySearch",defaultValue = "") String typeFacilitySearch,
+                           @RequestParam(value = "renTypeSearch",defaultValue = "") String renTypeSearch,
+                           Model model){
         model.addAttribute("typeFacility",typeFacilityService.findAll());
+        model.addAttribute("renType",renTypeService.findAll());
         model.addAttribute("nameSearch",nameSearch);
-        model.addAttribute("facilityList",facilityService.searchFacility(nameSearch,pageable));
+        model.addAttribute("typeFacilitySearch",typeFacilitySearch);
+        model.addAttribute("renTypeSearch",renTypeSearch);
+        model.addAttribute("facilityList",facilityService.searchFacility(nameSearch,typeFacilitySearch,renTypeSearch,pageable));
         return "/facility/list";
     }
 
     @GetMapping("/delete")
     public String deleteCustomer(@RequestParam(value = "idDelete") int id, RedirectAttributes redirectAttributes) {
         facilityService.deleteLogical(id);
-        redirectAttributes.addFlashAttribute("message", "Delete customer successfully!");
+        redirectAttributes.addFlashAttribute("mess", "xóa thành công");
         return "redirect:/facility";
     }
 
@@ -53,7 +59,7 @@ public class FacilityController {
     @PostMapping("/save")
     public String saveFacility(Facility facility,RedirectAttributes redirectAttributes,Model model){
         facilityService.save(facility);
-        redirectAttributes.addFlashAttribute("mess","Create Facility OK ");
+        redirectAttributes.addFlashAttribute("mess","Tạo mới thành công ");
         return "redirect:/facility/create";
     }
 
@@ -68,7 +74,7 @@ public class FacilityController {
     @PostMapping("/saveUpdate")
     public String saveUpdate(@ModelAttribute Facility facility,RedirectAttributes redirectAttributes){
         facilityService.save(facility);
-        redirectAttributes.addFlashAttribute("mess","Update OK");
+        redirectAttributes.addFlashAttribute("mess","Chỉnh sửa thành công");
         return "redirect:/facility";
     }
 }

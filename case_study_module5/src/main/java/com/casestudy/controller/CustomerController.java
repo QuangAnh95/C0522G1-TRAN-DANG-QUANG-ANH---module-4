@@ -1,8 +1,7 @@
 package com.casestudy.controller;
 
-import com.casestudy.Dto.CustomerDto;
+import com.casestudy.dto.CustomerDto;
 import com.casestudy.model.customers.Customers;
-import com.casestudy.model.customers.TypeCustomers;
 import com.casestudy.service.customer.ICustomerService;
 import com.casestudy.service.customer.ITypeCustomerService;
 import org.springframework.beans.BeanUtils;
@@ -11,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -49,23 +50,34 @@ public class CustomerController {
     @GetMapping("/delete")
     public String deleteCustomer(@RequestParam(value = "idDelete") int id, RedirectAttributes redirectAttributes){
         customerService.deleteLogical(id);
-        redirectAttributes.addFlashAttribute("message","Delete customer successfully!");
+        redirectAttributes.addFlashAttribute("mess","Xóa thành công");
         return "redirect:/customer";
     }
 
     @GetMapping("/create")
     public String formCreate(Model model){
-        model.addAttribute("customer", new Customers());
+        model.addAttribute("customerDto",new CustomerDto());
         model.addAttribute("typeCustomer",typeCustomerService.findAll());
         return "customer/create";
 
     }
 
     @PostMapping("/save")
-    public String createCustomer(Customers customers, RedirectAttributes redirectAttributes, Model model){
-        customerService.save(customers);
-        redirectAttributes.addFlashAttribute("mess","tạo thành công");
-        return "redirect:/customer/create";
+    public String createCustomer(@Validated @ModelAttribute CustomerDto customerDto,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model){
+        model.addAttribute("typeCustomer",typeCustomerService.findAll());
+        new CustomerDto().validate(customerDto,bindingResult);
+        if (bindingResult.hasErrors()){
+            return "/customer/create";
+        }else {
+            Customers customers = new Customers();
+            BeanUtils.copyProperties(customerDto,customers);
+            customerService.save(customers);
+            redirectAttributes.addFlashAttribute("mess","tạo mới thành công");
+            return "redirect:/customer/create";
+        }
     }
 
     @GetMapping("/update/{id}")
@@ -78,7 +90,7 @@ public class CustomerController {
     @PostMapping("/update")
     public String updateCustomer(@ModelAttribute Customers customers, RedirectAttributes redirectAttributes){
         customerService.save(customers);
-        redirectAttributes.addFlashAttribute("mess","update Ok");
+        redirectAttributes.addFlashAttribute("mess","chỉnh sửa thành công");
         return "redirect:/customer";
     }
 
